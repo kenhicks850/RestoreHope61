@@ -10,209 +10,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1e3a5f;
-            --primary-light: #2d5a8a;
-            --primary-dark: #0f1f33;
-            --secondary: #c9a227;
-            --secondary-light: #e8c84a;
-            --accent: #3d8b8b;
-            --success: #2d7a4f;
-            --white: #ffffff;
-            --gray-50: #faf9f7;
-            --gray-100: #f5f3f0;
-            --gray-200: #e8e5e0;
-            --gray-300: #d4d0c8;
-            --gray-400: #a8a29e;
-            --gray-500: #78716c;
-            --gray-600: #57534e;
-            --gray-700: #44403c;
-            --gray-800: #292524;
-            --gray-900: #1c1917;
-            --font-display: 'Source Serif 4', Georgia, serif;
-            --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-            --shadow-sm: 0 1px 2px rgba(28,25,23,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(28,25,23,0.07);
-            --shadow-lg: 0 10px 15px -3px rgba(28,25,23,0.08);
-            --shadow-xl: 0 20px 25px -5px rgba(28,25,23,0.1);
-            --radius-sm: 6px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-        }
-        *, *::before, *::after { box-sizing: border-box; }
-        * { margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-body); font-size: 1rem; line-height: 1.6; color: var(--gray-700); background: var(--gray-50); -webkit-font-smoothing: antialiased; }
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; color: var(--gray-900); }
-        h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); letter-spacing: -0.02em; }
-        h2 { font-size: clamp(1.875rem, 4vw, 2.25rem); letter-spacing: -0.01em; }
-        h3 { font-size: 1.5rem; }
-        h4 { font-size: 1.25rem; }
-        a { color: var(--primary); text-decoration: none; transition: color 0.15s; }
-        a:hover { color: var(--primary-light); }
-        :focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
-        .skip-link { position: absolute; top: -100%; left: 1rem; background: var(--primary); color: var(--white); padding: 0.75rem 1rem; border-radius: var(--radius-md); z-index: 9999; font-weight: 600; }
-        .skip-link:focus { top: 1rem; }
-        .container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.5; border: 2px solid transparent; border-radius: var(--radius-md); cursor: pointer; transition: all 0.25s; }
-        .btn--primary { background: var(--primary); color: var(--white); border-color: var(--primary); }
-        .btn--primary:hover { background: var(--primary-light); border-color: var(--primary-light); color: var(--white); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-        .btn--secondary { background: var(--secondary); color: var(--gray-900); border-color: var(--secondary); }
-        .btn--secondary:hover { background: var(--secondary-light); border-color: var(--secondary-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-        .btn--ghost { background: transparent; color: var(--primary); border-color: var(--primary); }
-        .btn--ghost:hover { background: var(--primary); color: var(--white); }
-        .btn--white-ghost { background: transparent; color: var(--white); border-color: var(--white); }
-        .btn--white-ghost:hover { background: var(--white); color: var(--primary); }
-        .btn--sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
-        .btn--lg { padding: 1rem 2rem; font-size: 1.125rem; }
-        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--gray-200); transition: all 0.25s; }
-        .nav.scrolled { box-shadow: var(--shadow-md); }
-        .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-        .nav__logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--gray-900); }
-        .nav__logo span:first-child { color: var(--primary); }
-        .nav__logo span:last-child { color: var(--secondary); }
-        .nav__links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-        .nav__link { font-size: 0.875rem; font-weight: 500; color: var(--gray-600); position: relative; }
-        .nav__link:hover, .nav__link.active { color: var(--primary); }
-        .nav__link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width 0.25s; }
-        .nav__link:hover::after, .nav__link.active::after { width: 100%; }
-        .nav__cta { display: flex; gap: 0.75rem; }
-        .nav__toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-        .nav__toggle svg { width: 24px; height: 24px; color: var(--gray-700); }
-        @media (max-width: 968px) {
-            .nav__toggle { display: block; }
-            .nav__menu { position: fixed; top: 72px; left: 0; right: 0; bottom: 0; background: var(--white); padding: 1.5rem; transform: translateX(100%); transition: transform 0.25s; overflow-y: auto; }
-            .nav__menu.open { transform: translateX(0); }
-            .nav__links { flex-direction: column; align-items: stretch; gap: 0.25rem; }
-            .nav__link { display: block; padding: 1rem; font-size: 1.125rem; border-radius: var(--radius-md); }
-            .nav__link:hover { background: var(--gray-100); }
-            .nav__link::after { display: none; }
-            .nav__cta { flex-direction: column; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-200); }
-            .nav__cta .btn { width: 100%; justify-content: center; }
-        }
-        .hero { position: relative; padding: calc(72px + 4rem) 0 5rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: var(--white); overflow: hidden; }
-        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
-        .hero__content { position: relative; z-index: 1; max-width: 720px; }
-        .hero__eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border-radius: 9999px; font-size: 0.875rem; font-weight: 500; color: var(--secondary-light); }
-        .hero__title { color: var(--white); margin-bottom: 1.5rem; }
-        .hero__title span { color: var(--secondary); }
-        .hero__description { font-size: 1.25rem; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
-        .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
-        .hero__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.15); }
-        .hero__stat { text-align: center; }
-        .hero__stat-value { font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.25rem; }
-        .hero__stat-label { font-size: 0.875rem; color: rgba(255,255,255,0.7); }
-        @media (max-width: 640px) { .hero__stats { grid-template-columns: 1fr; gap: 1.5rem; } .hero__cta { flex-direction: column; } .hero__cta .btn { width: 100%; } }
-        section { padding: 5rem 0; }
-        .section__eyebrow { font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 1rem; }
-        .section__header { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
-        .section__subtitle { font-size: 1.125rem; color: var(--gray-500); margin-top: 1rem; }
-        .mission { background: var(--white); }
-        .mission__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        .mission__content { max-width: 480px; }
-        .mission__text { font-size: 1.125rem; color: var(--gray-600); margin-bottom: 1.5rem; }
-        .mission__scripture { font-family: var(--font-display); font-size: 1.125rem; font-style: italic; color: var(--gray-500); padding-left: 1.5rem; border-left: 3px solid var(--secondary); }
-        .mission__cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .mission__card { padding: 1.5rem; background: var(--gray-50); border-radius: var(--radius-lg); border: 1px solid var(--gray-200); transition: all 0.25s; }
-        .mission__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--secondary); }
-        .mission__card-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--primary); color: var(--white); border-radius: var(--radius-md); margin-bottom: 1rem; }
-        .mission__card-icon svg { width: 24px; height: 24px; }
-        .mission__card-title { font-size: 1.125rem; margin-bottom: 0.5rem; }
-        .mission__card-text { font-size: 0.875rem; color: var(--gray-500); }
-        @media (max-width: 968px) { .mission__grid { grid-template-columns: 1fr; gap: 3rem; } .mission__content { max-width: 100%; text-align: center; } .mission__scripture { border-left: none; padding-left: 0; border-top: 3px solid var(--secondary); padding-top: 1rem; } }
-        .resources { background: var(--gray-50); }
-        .resources__tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2.5rem; padding: 0.5rem; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
-        .resources__tab { padding: 0.75rem 1.25rem; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; color: var(--gray-600); background: transparent; border: none; border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-        .resources__tab:hover { color: var(--primary); background: var(--gray-100); }
-        .resources__tab.active { color: var(--white); background: var(--primary); }
-        .resources__panel { display: none; animation: fadeIn 0.3s ease; }
-        .resources__panel.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .resources__panel-header { margin-bottom: 2rem; }
-        .resources__panel-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .resources__panel-desc { color: var(--gray-500); }
-        .resources__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .resource-card { background: var(--white); border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--gray-200); transition: all 0.25s; }
-        .resource-card:hover { border-color: var(--gray-300); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
-        .resource-card__header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; gap: 0.5rem; }
-        .resource-card__title { font-size: 1.125rem; font-weight: 600; color: var(--gray-900); }
-        .resource-card__badge { padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 9999px; background: var(--success); color: var(--white); flex-shrink: 0; }
-        .resource-card__badge--paid { background: var(--gray-400); }
-        .resource-card__info { display: flex; flex-direction: column; gap: 0.75rem; }
-        .resource-card__row { display: flex; gap: 0.75rem; }
-        .resource-card__label { flex-shrink: 0; width: 80px; font-size: 0.875rem; font-weight: 600; color: var(--gray-500); }
-        .resource-card__value { font-size: 0.875rem; color: var(--gray-700); }
-        .resource-card__value ul { list-style: none; }
-        .resource-card__value li { position: relative; padding-left: 1rem; margin-bottom: 0.25rem; }
-        .resource-card__value li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--secondary); border-radius: 50%; }
-        .resources__additional { background: var(--white); border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--gray-200); }
-        .resources__additional-title { font-size: 1.125rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gray-200); }
-        .resources__additional-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
-        .resources__additional-item { padding: 0.75rem; background: var(--gray-50); border-radius: var(--radius-md); font-size: 0.875rem; color: var(--gray-600); }
-        @media (max-width: 640px) { .resources__tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; } .resources__tabs::-webkit-scrollbar { display: none; } .resources__grid { grid-template-columns: 1fr; } }
-        .process { background: var(--white); }
-        .process__steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; position: relative; }
-        .process__steps::before { content: ''; position: absolute; top: 40px; left: 15%; right: 15%; height: 2px; background: var(--gray-200); }
-        .process__step { text-align: center; position: relative; }
-        .process__step-number { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; background: var(--primary); color: var(--white); font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; border-radius: 50%; position: relative; z-index: 1; }
-        .process__step-title { font-size: 1.25rem; margin-bottom: 0.75rem; }
-        .process__step-text { color: var(--gray-500); }
-        @media (max-width: 768px) { .process__steps { grid-template-columns: 1fr; gap: 2.5rem; } .process__steps::before { top: 0; bottom: 0; left: 39px; right: auto; width: 2px; height: auto; } .process__step { text-align: left; display: grid; grid-template-columns: 80px 1fr; gap: 1.5rem; align-items: start; } .process__step-number { margin: 0; } .process__step-content { padding-top: 1rem; } }
-        .contact { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: var(--white); position: relative; overflow: hidden; }
-        .contact::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
-        .contact__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
-        .contact__content { max-width: 400px; }
-        .contact__title { color: var(--white); margin-bottom: 1.5rem; }
-        .contact__text { font-size: 1.125rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
-        .contact__journey { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.1); border-radius: var(--radius-md); font-weight: 600; flex-wrap: wrap; justify-content: center; }
-        .contact__journey-step { color: var(--secondary); }
-        .contact__journey-arrow { color: rgba(255,255,255,0.4); }
-        .contact__form-wrapper { background: var(--white); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--shadow-xl); }
-        .contact__form-title { font-size: 1.25rem; color: var(--gray-900); margin-bottom: 1.5rem; }
-        .form__row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem; }
-        .form__group { display: flex; flex-direction: column; }
-        .form__group--full { grid-column: 1 / -1; }
-        .form__label { font-size: 0.875rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.5rem; }
-        .form__label .required { color: #c45c4a; }
-        .form__input, .form__select, .form__textarea { padding: 0.75rem 1rem; font-family: var(--font-body); font-size: 1rem; color: var(--gray-700); background: var(--gray-50); border: 1px solid var(--gray-300); border-radius: var(--radius-md); transition: all 0.15s; }
-        .form__input:focus, .form__select:focus, .form__textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,58,95,0.1); }
-        .form__textarea { resize: vertical; min-height: 120px; }
-        .form__select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2378716c' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 16px; padding-right: 2.5rem; }
-        .form__checkbox-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.5rem; }
-        .form__checkbox { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s; }
-        .form__checkbox:hover { border-color: var(--primary); }
-        .form__checkbox input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
-        .form__checkbox span { font-size: 0.875rem; color: var(--gray-700); }
-        .form__submit { width: 100%; margin-top: 1.5rem; }
-        .form__privacy { margin-top: 1rem; font-size: 0.75rem; color: var(--gray-500); text-align: center; }
-        @media (max-width: 968px) { .contact__inner { grid-template-columns: 1fr; gap: 2.5rem; } .contact__content { max-width: 100%; text-align: center; } }
-        @media (max-width: 640px) { .form__row { grid-template-columns: 1fr; } .form__checkbox-group { grid-template-columns: 1fr; } }
-        .footer { background: var(--gray-900); color: var(--gray-400); padding: 4rem 0 2rem; }
-        .footer__grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem; }
-        .footer__brand { max-width: 280px; }
-        .footer__logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
-        .footer__logo span:first-child { color: var(--primary-light); }
-        .footer__logo span:last-child { color: var(--secondary); }
-        .footer__tagline { font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.5rem; }
-        .footer__social { display: flex; gap: 0.75rem; }
-        .footer__social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--gray-800); color: var(--gray-400); border-radius: var(--radius-md); transition: all 0.15s; }
-        .footer__social a:hover { background: var(--primary); color: var(--white); }
-        .footer__col-title { font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--white); margin-bottom: 1rem; }
-        .footer__links { list-style: none; }
-        .footer__links li { margin-bottom: 0.75rem; }
-        .footer__links a { font-size: 0.875rem; color: var(--gray-400); }
-        .footer__links a:hover { color: var(--white); }
-        .footer__bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--gray-800); flex-wrap: wrap; gap: 1rem; }
-        .footer__copyright { font-size: 0.875rem; }
-        .footer__disclaimer { font-size: 0.75rem; max-width: 500px; text-align: right; }
-        @media (max-width: 968px) { .footer__grid { grid-template-columns: repeat(2, 1fr); } .footer__brand { grid-column: 1 / -1; max-width: 100%; } }
-        @media (max-width: 640px) { .footer__grid { grid-template-columns: 1fr; text-align: center; } .footer__social { justify-content: center; } .footer__bottom { flex-direction: column; text-align: center; } .footer__disclaimer { text-align: center; } }
-        .help-button { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999; display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; background: var(--secondary); color: var(--gray-900); font-weight: 600; border: none; border-radius: 9999px; cursor: pointer; box-shadow: var(--shadow-xl); transition: all 0.25s; text-decoration: none; }
-        .help-button:hover { transform: scale(1.05); box-shadow: 0 20px 40px -10px rgba(201,162,39,0.4); color: var(--gray-900); }
-        .help-button svg { width: 20px; height: 20px; }
-        @media (max-width: 640px) { .help-button span { display: none; } .help-button { padding: 1rem; } }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+        :root{--primary:#1e3a5f;--primary-light:#2d5a8a;--primary-dark:#0f1f33;--secondary:#c9a227;--secondary-light:#e8c84a;--accent:#3d8b8b;--success:#2d7a4f;--white:#fff;--gray-50:#faf9f7;--gray-100:#f5f3f0;--gray-200:#e8e5e0;--gray-300:#d4d0c8;--gray-400:#a8a29e;--gray-500:#78716c;--gray-600:#57534e;--gray-700:#44403c;--gray-800:#292524;--gray-900:#1c1917;--font-display:'Source Serif 4',Georgia,serif;--font-body:'Plus Jakarta Sans',system-ui,sans-serif;--shadow-sm:0 1px 2px rgba(28,25,23,.05);--shadow-md:0 4px 6px -1px rgba(28,25,23,.07);--shadow-lg:0 10px 15px -3px rgba(28,25,23,.08);--shadow-xl:0 20px 25px -5px rgba(28,25,23,.1);--radius-sm:6px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px}
+        *,*::before,*::after{box-sizing:border-box}*{margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--font-body);font-size:1rem;line-height:1.6;color:var(--gray-700);background:var(--gray-50);-webkit-font-smoothing:antialiased}h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.2;color:var(--gray-900)}h1{font-size:clamp(2.25rem,5vw,3.75rem);letter-spacing:-.02em}h2{font-size:clamp(1.875rem,4vw,2.25rem);letter-spacing:-.01em}h3{font-size:1.5rem}h4{font-size:1.25rem}a{color:var(--primary);text-decoration:none;transition:color .15s}a:hover{color:var(--primary-light)}:focus-visible{outline:2px solid var(--secondary);outline-offset:2px}.skip-link{position:absolute;top:-100%;left:1rem;background:var(--primary);color:var(--white);padding:.75rem 1rem;border-radius:var(--radius-md);z-index:9999;font-weight:600}.skip-link:focus{top:1rem}.container{width:100%;max-width:1140px;margin:0 auto;padding:0 1.5rem}
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;font-family:var(--font-body);font-size:1rem;font-weight:600;line-height:1.5;border:2px solid transparent;border-radius:var(--radius-md);cursor:pointer;transition:all .25s}.btn--primary{background:var(--primary);color:var(--white);border-color:var(--primary)}.btn--primary:hover{background:var(--primary-light);border-color:var(--primary-light);color:var(--white);transform:translateY(-1px);box-shadow:var(--shadow-md)}.btn--secondary{background:var(--secondary);color:var(--gray-900);border-color:var(--secondary)}.btn--secondary:hover{background:var(--secondary-light);border-color:var(--secondary-light);transform:translateY(-1px);box-shadow:var(--shadow-md)}.btn--ghost{background:transparent;color:var(--primary);border-color:var(--primary)}.btn--ghost:hover{background:var(--primary);color:var(--white)}.btn--white-ghost{background:transparent;color:var(--white);border-color:var(--white)}.btn--white-ghost:hover{background:var(--white);color:var(--primary)}.btn--sm{padding:.5rem 1rem;font-size:.875rem}.btn--lg{padding:1rem 2rem;font-size:1.125rem}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray-200);transition:all .25s}.nav.scrolled{box-shadow:var(--shadow-md)}.nav__inner{display:flex;align-items:center;justify-content:space-between;height:72px}.nav__logo{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--gray-900)}.nav__logo span:first-child{color:var(--primary)}.nav__logo span:last-child{color:var(--secondary)}.nav__links{display:flex;align-items:center;gap:2rem;list-style:none}.nav__link{font-size:.875rem;font-weight:500;color:var(--gray-600);position:relative}.nav__link:hover,.nav__link.active{color:var(--primary)}.nav__link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--secondary);transition:width .25s}.nav__link:hover::after,.nav__link.active::after{width:100%}.nav__cta{display:flex;gap:.75rem}.nav__toggle{display:none;background:none;border:none;cursor:pointer;padding:.5rem}.nav__toggle svg{width:24px;height:24px;color:var(--gray-700)}
+        @media(max-width:968px){.nav__toggle{display:block}.nav__menu{position:fixed;top:72px;left:0;right:0;bottom:0;background:var(--white);padding:1.5rem;transform:translateX(100%);transition:transform .25s;overflow-y:auto}.nav__menu.open{transform:translateX(0)}.nav__links{flex-direction:column;align-items:stretch;gap:.25rem}.nav__link{display:block;padding:1rem;font-size:1.125rem;border-radius:var(--radius-md)}.nav__link:hover{background:var(--gray-100)}.nav__link::after{display:none}.nav__cta{flex-direction:column;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--gray-200)}.nav__cta .btn{width:100%;justify-content:center}}
+        .hero{position:relative;padding:calc(72px + 4rem) 0 5rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:var(--white);overflow:hidden}.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}.hero__content{position:relative;z-index:1;max-width:720px}.hero__eyebrow{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1rem;padding:.5rem 1rem;background:rgba(255,255,255,.1);border-radius:9999px;font-size:.875rem;font-weight:500;color:var(--secondary-light)}.hero__title{color:var(--white);margin-bottom:1.5rem}.hero__title span{color:var(--secondary)}.hero__description{font-size:1.25rem;line-height:1.7;color:rgba(255,255,255,.85);margin-bottom:2rem}.hero__cta{display:flex;flex-wrap:wrap;gap:1rem}.hero__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.15)}.hero__stat{text-align:center}.hero__stat-value{font-family:var(--font-display);font-size:2.25rem;font-weight:700;color:var(--secondary);margin-bottom:.25rem}.hero__stat-label{font-size:.875rem;color:rgba(255,255,255,.7)}
+        @media(max-width:640px){.hero__stats{grid-template-columns:1fr;gap:1.5rem}.hero__cta{flex-direction:column}.hero__cta .btn{width:100%}}
+        section{padding:5rem 0}.section__eyebrow{font-size:.875rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--secondary);margin-bottom:1rem}.section__header{text-align:center;max-width:600px;margin:0 auto 3rem}.section__subtitle{font-size:1.125rem;color:var(--gray-500);margin-top:1rem}
+        .mission{background:var(--white)}.mission__grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}.mission__content{max-width:480px}.mission__text{font-size:1.125rem;color:var(--gray-600);margin-bottom:1.5rem}.mission__scripture{font-family:var(--font-display);font-size:1.125rem;font-style:italic;color:var(--gray-500);padding-left:1.5rem;border-left:3px solid var(--secondary)}.mission__cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.mission__card{padding:1.5rem;background:var(--gray-50);border-radius:var(--radius-lg);border:1px solid var(--gray-200);transition:all .25s}.mission__card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--secondary)}.mission__card-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--primary);color:var(--white);border-radius:var(--radius-md);margin-bottom:1rem}.mission__card-icon svg{width:24px;height:24px}.mission__card-title{font-size:1.125rem;margin-bottom:.5rem}.mission__card-text{font-size:.875rem;color:var(--gray-500)}
+        @media(max-width:968px){.mission__grid{grid-template-columns:1fr;gap:3rem}.mission__content{max-width:100%;text-align:center}.mission__scripture{border-left:none;padding-left:0;border-top:3px solid var(--secondary);padding-top:1rem}}
+        .resources{background:var(--gray-50)}.resources__tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-bottom:2.5rem;padding:.5rem;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}.resources__tab{padding:.75rem 1.25rem;font-family:var(--font-body);font-size:.875rem;font-weight:500;color:var(--gray-600);background:transparent;border:none;border-radius:var(--radius-md);cursor:pointer;transition:all .15s;white-space:nowrap}.resources__tab:hover{color:var(--primary);background:var(--gray-100)}.resources__tab.active{color:var(--white);background:var(--primary)}.resources__panel{display:none;animation:fadeIn .3s ease}.resources__panel.active{display:block}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.resources__panel-header{margin-bottom:2rem}.resources__panel-title{font-size:1.5rem;margin-bottom:.5rem}.resources__panel-desc{color:var(--gray-500)}.resources__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-bottom:2rem}
+        .resource-card{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--gray-200);transition:all .25s}.resource-card:hover{border-color:var(--gray-300);box-shadow:var(--shadow-lg);transform:translateY(-2px)}.resource-card__header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;gap:.5rem}.resource-card__title{font-size:1.125rem;font-weight:600;color:var(--gray-900)}.resource-card__badge{padding:.25rem .75rem;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border-radius:9999px;background:var(--success);color:var(--white);flex-shrink:0}.resource-card__badge--paid{background:var(--gray-400)}.resource-card__info{display:flex;flex-direction:column;gap:.75rem}.resource-card__row{display:flex;gap:.75rem}.resource-card__label{flex-shrink:0;width:80px;font-size:.875rem;font-weight:600;color:var(--gray-500)}.resource-card__value{font-size:.875rem;color:var(--gray-700)}.resource-card__value ul{list-style:none}.resource-card__value li{position:relative;padding-left:1rem;margin-bottom:.25rem}.resource-card__value li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;background:var(--secondary);border-radius:50%}
+        .resources__additional{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--gray-200)}.resources__additional-title{font-size:1.125rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--gray-200)}.resources__additional-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem}.resources__additional-item{padding:.75rem;background:var(--gray-50);border-radius:var(--radius-md);font-size:.875rem;color:var(--gray-600)}
+        @media(max-width:640px){.resources__tabs{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.resources__tabs::-webkit-scrollbar{display:none}.resources__grid{grid-template-columns:1fr}}
+        .process{background:var(--white)}.process__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;position:relative}.process__steps::before{content:'';position:absolute;top:40px;left:15%;right:15%;height:2px;background:var(--gray-200)}.process__step{text-align:center;position:relative}.process__step-number{width:80px;height:80px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;background:var(--primary);color:var(--white);font-family:var(--font-display);font-size:1.5rem;font-weight:700;border-radius:50%;position:relative;z-index:1}.process__step-title{font-size:1.25rem;margin-bottom:.75rem}.process__step-text{color:var(--gray-500)}
+        @media(max-width:768px){.process__steps{grid-template-columns:1fr;gap:2.5rem}.process__steps::before{top:0;bottom:0;left:39px;right:auto;width:2px;height:auto}.process__step{text-align:left;display:grid;grid-template-columns:80px 1fr;gap:1.5rem;align-items:start}.process__step-number{margin:0}.process__step-content{padding-top:1rem}}
+        .contact{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:var(--white);position:relative;overflow:hidden}.contact::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}.contact__inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}.contact__content{max-width:400px}.contact__title{color:var(--white);margin-bottom:1.5rem}.contact__text{font-size:1.125rem;color:rgba(255,255,255,.8);margin-bottom:2rem}.contact__journey{display:flex;align-items:center;gap:.75rem;padding:1rem 1.5rem;background:rgba(255,255,255,.1);border-radius:var(--radius-md);font-weight:600;flex-wrap:wrap;justify-content:center}.contact__journey-step{color:var(--secondary)}.contact__journey-arrow{color:rgba(255,255,255,.4)}
+        .contact__form-wrapper{background:var(--white);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-xl)}.contact__form-title{font-size:1.25rem;color:var(--gray-900);margin-bottom:1.5rem}.form__row{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1rem}.form__group{display:flex;flex-direction:column}.form__group--full{grid-column:1/-1}.form__label{font-size:.875rem;font-weight:600;color:var(--gray-700);margin-bottom:.5rem}.form__label .required{color:#c45c4a}.form__input,.form__select,.form__textarea{padding:.75rem 1rem;font-family:var(--font-body);font-size:1rem;color:var(--gray-700);background:var(--gray-50);border:1px solid var(--gray-300);border-radius:var(--radius-md);transition:all .15s}.form__input:focus,.form__select:focus,.form__textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(30,58,95,.1)}.form__textarea{resize:vertical;min-height:120px}.form__select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2378716c' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;background-size:16px;padding-right:2.5rem}.form__checkbox-group{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.5rem}.form__checkbox{display:flex;align-items:center;gap:.5rem;padding:.75rem;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:all .15s}.form__checkbox:hover{border-color:var(--primary)}.form__checkbox input[type="checkbox"]{width:18px;height:18px;cursor:pointer;accent-color:var(--primary)}.form__checkbox span{font-size:.875rem;color:var(--gray-700)}.form__submit{width:100%;margin-top:1.5rem}.form__privacy{margin-top:1rem;font-size:.75rem;color:var(--gray-500);text-align:center}
+        @media(max-width:968px){.contact__inner{grid-template-columns:1fr;gap:2.5rem}.contact__content{max-width:100%;text-align:center}}@media(max-width:640px){.form__row{grid-template-columns:1fr}.form__checkbox-group{grid-template-columns:1fr}}
+        .footer{background:var(--gray-900);color:var(--gray-400);padding:4rem 0 2rem}.footer__grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:3rem;margin-bottom:3rem}.footer__brand{max-width:280px}.footer__logo{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--white);margin-bottom:1rem}.footer__logo span:first-child{color:var(--primary-light)}.footer__logo span:last-child{color:var(--secondary)}.footer__tagline{font-size:.875rem;line-height:1.7;margin-bottom:1.5rem}.footer__social{display:flex;gap:.75rem}.footer__social a{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--gray-800);color:var(--gray-400);border-radius:var(--radius-md);transition:all .15s}.footer__social a:hover{background:var(--primary);color:var(--white)}.footer__col-title{font-family:var(--font-body);font-size:.875rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--white);margin-bottom:1rem}.footer__links{list-style:none}.footer__links li{margin-bottom:.75rem}.footer__links a{font-size:.875rem;color:var(--gray-400)}.footer__links a:hover{color:var(--white)}.footer__bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--gray-800);flex-wrap:wrap;gap:1rem}.footer__copyright{font-size:.875rem}.footer__disclaimer{font-size:.75rem;max-width:500px;text-align:right}
+        @media(max-width:968px){.footer__grid{grid-template-columns:repeat(2,1fr)}.footer__brand{grid-column:1/-1;max-width:100%}}@media(max-width:640px){.footer__grid{grid-template-columns:1fr;text-align:center}.footer__social{justify-content:center}.footer__bottom{flex-direction:column;text-align:center}.footer__disclaimer{text-align:center}}
+        .help-button{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;align-items:center;gap:.5rem;padding:1rem 1.5rem;background:var(--secondary);color:var(--gray-900);font-weight:600;border:none;border-radius:9999px;cursor:pointer;box-shadow:var(--shadow-xl);transition:all .25s;text-decoration:none}.help-button:hover{transform:scale(1.05);box-shadow:0 20px 40px -10px rgba(201,162,39,.4);color:var(--gray-900)}.help-button svg{width:20px;height:20px}@media(max-width:640px){.help-button span{display:none}.help-button{padding:1rem}}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     </style>
 </head>
 <body>
@@ -316,274 +135,78 @@
                     <button class="resources__tab" role="tab" aria-selected="false" data-tab="infertility">Infertility</button>
                 </div>
                 <div class="resources__panel active" data-panel="emotional">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Emotional & Mental Health Support</h3>
-                        <p class="resources__panel-desc">Support for grief, depression, anxiety, trauma, and isolation.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Emotional & Mental Health Support</h3><p class="resources__panel-desc">Support for grief, depression, anxiety, trauma, and isolation.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Faith Chapel Christian Center</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Type</span><span class="resource-card__value">Biblical counseling</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free biblical counseling - spiritual and emotional support</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Grief, anxiety, depression, feeling unseen</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Evangel Church PCA</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free confidential biblical counseling (weekly sessions)</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Cornerstone Initiative - MEND</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Type</span><span class="resource-card__value">Trauma recovery and soul care</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Trauma survivors, PTSD, abuse recovery</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Faith Chapel Christian Center</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Type</span><span class="resource-card__value">Biblical counseling</span></div><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free biblical counseling - spiritual and emotional support</span></div><div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Grief, anxiety, depression, feeling unseen</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Evangel Church PCA</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free confidential biblical counseling (weekly sessions)</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Cornerstone Initiative - MEND</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Type</span><span class="resource-card__value">Trauma recovery and soul care</span></div><div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Trauma survivors, PTSD, abuse recovery</span></div></div></article>
                     </div>
-                    <div class="resources__additional">
-                        <h4 class="resources__additional-title">Professional Mental Health (Sliding Scale)</h4>
-                        <ul class="resources__additional-list">
-                            <li class="resources__additional-item">Valley Christian Counseling - Income-based rates</li>
-                            <li class="resources__additional-item">HAPPI Health - Licensed counseling with sliding fees</li>
-                            <li class="resources__additional-item">Community Mental Health Centers - State-supported</li>
-                            <li class="resources__additional-item">Crisis Services of North Alabama - 211 (24/7)</li>
-                        </ul>
-                    </div>
+                    <div class="resources__additional"><h4 class="resources__additional-title">Professional Mental Health (Sliding Scale)</h4><ul class="resources__additional-list"><li class="resources__additional-item">Valley Christian Counseling - Income-based rates</li><li class="resources__additional-item">HAPPI Health - Licensed counseling with sliding fees</li><li class="resources__additional-item">Community Mental Health Centers - State-supported</li><li class="resources__additional-item">Crisis Services of North Alabama - 211 (24/7)</li></ul></div>
                 </div>
                 <div class="resources__panel" data-panel="spiritual">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Spiritual & Existential Support</h3>
-                        <p class="resources__panel-desc">Prayer, spiritual direction, finding meaning and hope.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Spiritual & Existential Support</h3><p class="resources__panel-desc">Prayer, spiritual direction, finding meaning and hope.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Impact Ministries</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Spiritual growth, biblical teaching, online discipleship, community groups</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Local Church Pastoral Care</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Prayer support, pastoral counseling, healing groups</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Loss of faith, wrestling with forgiveness</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Impact Ministries</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Spiritual growth, biblical teaching, online discipleship, community groups</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Local Church Pastoral Care</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Prayer support, pastoral counseling, healing groups</span></div><div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Loss of faith, wrestling with forgiveness</span></div></div></article>
                     </div>
-                    <div class="resources__additional">
-                        <h4 class="resources__additional-title">Churches Offering Spiritual Support</h4>
-                        <ul class="resources__additional-list">
-                            <li class="resources__additional-item">Church of the Highlands - Prayer teams</li>
-                            <li class="resources__additional-item">First Baptist Huntsville - Pastoral care</li>
-                            <li class="resources__additional-item">Grace Community Church - Mentoring</li>
-                            <li class="resources__additional-item">Westminster Presbyterian - Guidance</li>
-                        </ul>
-                    </div>
+                    <div class="resources__additional"><h4 class="resources__additional-title">Churches Offering Spiritual Support</h4><ul class="resources__additional-list"><li class="resources__additional-item">Church of the Highlands - Prayer teams</li><li class="resources__additional-item">First Baptist Huntsville - Pastoral care</li><li class="resources__additional-item">Grace Community Church - Mentoring</li><li class="resources__additional-item">Westminster Presbyterian - Guidance</li></ul></div>
                 </div>
                 <div class="resources__panel" data-panel="safety">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Safety & Protection</h3>
-                        <p class="resources__panel-desc">Emergency shelter, safe housing, protection from abuse.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Safety & Protection</h3><p class="resources__panel-desc">Emergency shelter, safe housing, protection from abuse.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Downtown Rescue Mission</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Overnight lodging, meals, case management, housing programs</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">New Futures</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Shelter for homeless families with children</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Families fleeing unsafe situations</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Legal Services Alabama - DV</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Protection orders, legal advocacy for abuse victims</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Contact</span><span class="resource-card__value">866-456-4995</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Downtown Rescue Mission</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Overnight lodging, meals, case management, housing programs</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">New Futures</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Shelter for homeless families with children</span></div><div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Families fleeing unsafe situations</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Legal Services Alabama - DV</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Protection orders, legal advocacy for abuse victims</span></div><div class="resource-card__row"><span class="resource-card__label">Contact</span><span class="resource-card__value">866-456-4995</span></div></div></article>
                     </div>
                 </div>
                 <div class="resources__panel" data-panel="practical">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Practical & Daily Living</h3>
-                        <p class="resources__panel-desc">Food, clothing, housing, transportation.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Practical & Daily Living</h3><p class="resources__panel-desc">Food, clothing, housing, transportation.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Huntsville Assistance Program</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Emergency rent, utilities, and prescription assistance</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Food Bank of North Alabama</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Food distribution and pantry network</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Manna House</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Hot meals and food assistance</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Huntsville Assistance Program</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Emergency rent, utilities, and prescription assistance</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Food Bank of North Alabama</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Food distribution and pantry network</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Manna House</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Hot meals and food assistance</span></div></div></article>
                     </div>
-                    <div class="resources__additional">
-                        <h4 class="resources__additional-title">Additional Resources</h4>
-                        <ul class="resources__additional-list">
-                            <li class="resources__additional-item">Rose of Sharon Soup Kitchen</li>
-                            <li class="resources__additional-item">FoodLine - (256) 539-2191</li>
-                            <li class="resources__additional-item">Salvation Army - Emergency assistance</li>
-                        </ul>
-                    </div>
+                    <div class="resources__additional"><h4 class="resources__additional-title">Additional Resources</h4><ul class="resources__additional-list"><li class="resources__additional-item">Rose of Sharon Soup Kitchen</li><li class="resources__additional-item">FoodLine - (256) 539-2191</li><li class="resources__additional-item">Salvation Army - Emergency assistance</li></ul></div>
                 </div>
                 <div class="resources__panel" data-panel="financial">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Financial Stability</h3>
-                        <p class="resources__panel-desc">Budget help, debt relief, job training, emergency funds.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Financial Stability</h3><p class="resources__panel-desc">Budget help, debt relief, job training, emergency funds.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Cornerstone Faith & Finances</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Financial coaching and budgeting classes</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Jobs for Life</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Job readiness training and employment support</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">TEARS Foundation</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Funeral assistance for families who have lost a child</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Cornerstone Faith & Finances</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Financial coaching and budgeting classes</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Jobs for Life</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Job readiness training and employment support</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">TEARS Foundation</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Funeral assistance for families who have lost a child</span></div></div></article>
                     </div>
                 </div>
                 <div class="resources__panel" data-panel="legal">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Legal & Advocacy</h3>
-                        <p class="resources__panel-desc">Legal aid, guardianship help, tenant rights.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Legal & Advocacy</h3><p class="resources__panel-desc">Legal aid, guardianship help, tenant rights.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Legal Services Alabama</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free civil legal help for low-income residents</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Contact</span><span class="resource-card__value">866-456-4995</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Madison County Volunteer Lawyers</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Pro bono legal assistance</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Contact</span><span class="resource-card__value">256-539-2275</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Legal Services Alabama</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free civil legal help for low-income residents</span></div><div class="resource-card__row"><span class="resource-card__label">Contact</span><span class="resource-card__value">866-456-4995</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Madison County Volunteer Lawyers</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Pro bono legal assistance</span></div><div class="resource-card__row"><span class="resource-card__label">Contact</span><span class="resource-card__value">256-539-2275</span></div></div></article>
                     </div>
                 </div>
                 <div class="resources__panel" data-panel="parenting">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Parenting & Caregiving</h3>
-                        <p class="resources__panel-desc">Childcare, parenting classes, respite care.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Parenting & Caregiving</h3><p class="resources__panel-desc">Childcare, parenting classes, respite care.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Public Pre-K Programs</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free preschool for qualifying families</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Head Start</h4><span class="resource-card__badge">Free</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Early childhood education and family support</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">DHR Child Care Subsidy</h4><span class="resource-card__badge resource-card__badge--paid">Subsidized</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Financial assistance for childcare costs</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Public Pre-K Programs</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Free preschool for qualifying families</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Head Start</h4><span class="resource-card__badge">Free</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Early childhood education and family support</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">DHR Child Care Subsidy</h4><span class="resource-card__badge resource-card__badge--paid">Subsidized</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Financial assistance for childcare costs</span></div></div></article>
                     </div>
                 </div>
                 <div class="resources__panel" data-panel="health">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Health & Wellness</h3>
-                        <p class="resources__panel-desc">Healthcare access, chronic illness support, recovery.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Health & Wellness</h3><p class="resources__panel-desc">Healthcare access, chronic illness support, recovery.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">HAPPI Health</h4><span class="resource-card__badge resource-card__badge--paid">Sliding Scale</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Behavioral health, medical services</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Chronic stress, sleep issues</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Community Mental Health</h4><span class="resource-card__badge resource-card__badge--paid">Sliding Scale</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Counseling, therapy, medical referrals</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">HAPPI Health</h4><span class="resource-card__badge resource-card__badge--paid">Sliding Scale</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Behavioral health, medical services</span></div><div class="resource-card__row"><span class="resource-card__label">Best For</span><span class="resource-card__value">Chronic stress, sleep issues</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Community Mental Health</h4><span class="resource-card__badge resource-card__badge--paid">Sliding Scale</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Counseling, therapy, medical referrals</span></div></div></article>
                     </div>
-                    <div class="resources__additional">
-                        <h4 class="resources__additional-title">Additional Health Resources</h4>
-                        <ul class="resources__additional-list">
-                            <li class="resources__additional-item">Substance abuse recovery programs</li>
-                            <li class="resources__additional-item">Disability support services</li>
-                            <li class="resources__additional-item">Crisis Mental Health - 211 (24/7)</li>
-                        </ul>
-                    </div>
+                    <div class="resources__additional"><h4 class="resources__additional-title">Additional Health Resources</h4><ul class="resources__additional-list"><li class="resources__additional-item">Substance abuse recovery programs</li><li class="resources__additional-item">Disability support services</li><li class="resources__additional-item">Crisis Mental Health - 211 (24/7)</li></ul></div>
                 </div>
                 <div class="resources__panel" data-panel="infertility">
-                    <div class="resources__panel-header">
-                        <h3 class="resources__panel-title">Infertility Support</h3>
-                        <p class="resources__panel-desc">Fertility clinics, reproductive health, support groups.</p>
-                    </div>
+                    <div class="resources__panel-header"><h3 class="resources__panel-title">Infertility Support</h3><p class="resources__panel-desc">Fertility clinics, reproductive health, support groups.</p></div>
                     <div class="resources__grid">
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Fertility Institute of North Alabama</h4><span class="resource-card__badge resource-card__badge--paid">Insurance</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Comprehensive fertility evaluation, IVF</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Rating</span><span class="resource-card__value">⭐ 4.5</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Alabama Women's Wellness</h4><span class="resource-card__badge resource-card__badge--paid">Insurance</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Reproductive health services</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Rating</span><span class="resource-card__value">⭐ 4.7</span></div>
-                            </div>
-                        </article>
-                        <article class="resource-card">
-                            <div class="resource-card__header"><h4 class="resource-card__title">Huntsville Hospital Women & Children</h4><span class="resource-card__badge">Nonprofit</span></div>
-                            <div class="resource-card__info">
-                                <div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Comprehensive women's health, OB/GYN</span></div>
-                                <div class="resource-card__row"><span class="resource-card__label">Rating</span><span class="resource-card__value">⭐ 4.8</span></div>
-                            </div>
-                        </article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Fertility Institute of North Alabama</h4><span class="resource-card__badge resource-card__badge--paid">Insurance</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Comprehensive fertility evaluation, IVF</span></div><div class="resource-card__row"><span class="resource-card__label">Rating</span><span class="resource-card__value">⭐ 4.5</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Alabama Women's Wellness</h4><span class="resource-card__badge resource-card__badge--paid">Insurance</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Reproductive health services</span></div><div class="resource-card__row"><span class="resource-card__label">Rating</span><span class="resource-card__value">⭐ 4.7</span></div></div></article>
+                        <article class="resource-card"><div class="resource-card__header"><h4 class="resource-card__title">Huntsville Hospital Women & Children</h4><span class="resource-card__badge">Nonprofit</span></div><div class="resource-card__info"><div class="resource-card__row"><span class="resource-card__label">Services</span><span class="resource-card__value">Comprehensive women's health, OB/GYN</span></div><div class="resource-card__row"><span class="resource-card__label">Rating</span><span class="resource-card__value">⭐ 4.8</span></div></div></article>
                     </div>
-                    <div class="resources__additional">
-                        <h4 class="resources__additional-title">Financial Assistance (National)</h4>
-                        <ul class="resources__additional-list">
-                            <li class="resources__additional-item">Hope for Fertility Foundation - Treatment grants</li>
-                            <li class="resources__additional-item">Baby Quest Foundation - IVF funding</li>
-                            <li class="resources__additional-item">Huntsville Infertility Support - Peer group</li>
-                        </ul>
-                    </div>
+                    <div class="resources__additional"><h4 class="resources__additional-title">Financial Assistance (National)</h4><ul class="resources__additional-list"><li class="resources__additional-item">Hope for Fertility Foundation - Treatment grants</li><li class="resources__additional-item">Baby Quest Foundation - IVF funding</li><li class="resources__additional-item">Huntsville Infertility Support - Peer group</li></ul></div>
                 </div>
             </div>
         </section>
@@ -595,27 +218,9 @@
                     <p class="section__subtitle">We meet you where you are and walk with you through each stage.</p>
                 </header>
                 <div class="process__steps">
-                    <div class="process__step">
-                        <div class="process__step-number">1</div>
-                        <div class="process__step-content">
-                            <h3 class="process__step-title">Safety</h3>
-                            <p class="process__step-text">First, we ensure you have a safe place and your immediate needs are met.</p>
-                        </div>
-                    </div>
-                    <div class="process__step">
-                        <div class="process__step-number">2</div>
-                        <div class="process__step-content">
-                            <h3 class="process__step-title">Stability</h3>
-                            <p class="process__step-text">Next, we connect you with resources for housing, food, financial support.</p>
-                        </div>
-                    </div>
-                    <div class="process__step">
-                        <div class="process__step-number">3</div>
-                        <div class="process__step-content">
-                            <h3 class="process__step-title">Restoration</h3>
-                            <p class="process__step-text">Finally, we support your journey toward healing, purpose, and renewed hope.</p>
-                        </div>
-                    </div>
+                    <div class="process__step"><div class="process__step-number">1</div><div class="process__step-content"><h3 class="process__step-title">Safety</h3><p class="process__step-text">First, we ensure you have a safe place and your immediate needs are met.</p></div></div>
+                    <div class="process__step"><div class="process__step-number">2</div><div class="process__step-content"><h3 class="process__step-title">Stability</h3><p class="process__step-text">Next, we connect you with resources for housing, food, financial support.</p></div></div>
+                    <div class="process__step"><div class="process__step-number">3</div><div class="process__step-content"><h3 class="process__step-title">Restoration</h3><p class="process__step-text">Finally, we support your journey toward healing, purpose, and renewed hope.</p></div></div>
                 </div>
             </div>
         </section>
@@ -626,13 +231,7 @@
                         <p class="section__eyebrow">Get Help Today</p>
                         <h2 class="contact__title">We're Here for You</h2>
                         <p class="contact__text">For assistance connecting with resources or guidance on which services may best meet your needs, please reach out. All inquiries are confidential.</p>
-                        <div class="contact__journey">
-                            <span class="contact__journey-step">Safety</span>
-                            <span class="contact__journey-arrow">→</span>
-                            <span class="contact__journey-step">Stability</span>
-                            <span class="contact__journey-arrow">→</span>
-                            <span class="contact__journey-step">Restoration</span>
-                        </div>
+                        <div class="contact__journey"><span class="contact__journey-step">Safety</span><span class="contact__journey-arrow">→</span><span class="contact__journey-step">Stability</span><span class="contact__journey-arrow">→</span><span class="contact__journey-step">Restoration</span></div>
                     </div>
                     <div class="contact__form-wrapper">
                         <h3 class="contact__form-title">Request Help</h3>
@@ -641,33 +240,12 @@
                             <input type="hidden" name="_captcha" value="true">
                             <input type="hidden" name="_template" value="table">
                             <div class="form__row">
-                                <div class="form__group">
-                                    <label class="form__label" for="name">Name <span class="required">*</span></label>
-                                    <input type="text" id="name" name="name" class="form__input" required placeholder="Your full name">
-                                </div>
-                                <div class="form__group">
-                                    <label class="form__label" for="phone">Phone <span class="required">*</span></label>
-                                    <input type="tel" id="phone" name="phone" class="form__input" required placeholder="(256) 555-1234">
-                                </div>
+                                <div class="form__group"><label class="form__label" for="name">Name <span class="required">*</span></label><input type="text" id="name" name="name" class="form__input" required placeholder="Your full name"></div>
+                                <div class="form__group"><label class="form__label" for="phone">Phone <span class="required">*</span></label><input type="tel" id="phone" name="phone" class="form__input" required placeholder="(256) 555-1234"></div>
                             </div>
                             <div class="form__row">
-                                <div class="form__group">
-                                    <label class="form__label" for="email">Email <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" class="form__input" required placeholder="you@example.com">
-                                </div>
-                                <div class="form__group">
-                                    <label class="form__label" for="age">Age Range</label>
-                                    <select id="age" name="age_range" class="form__select">
-                                        <option value="">Select age range</option>
-                                        <option value="Under 18">Under 18</option>
-                                        <option value="18-24">18-24</option>
-                                        <option value="25-34">25-34</option>
-                                        <option value="35-44">35-44</option>
-                                        <option value="45-54">45-54</option>
-                                        <option value="55-64">55-64</option>
-                                        <option value="65+">65+</option>
-                                    </select>
-                                </div>
+                                <div class="form__group"><label class="form__label" for="email">Email <span class="required">*</span></label><input type="email" id="email" name="email" class="form__input" required placeholder="you@example.com"></div>
+                                <div class="form__group"><label class="form__label" for="age">Age Range</label><select id="age" name="age_range" class="form__select"><option value="">Select age range</option><option value="Under 18">Under 18</option><option value="18-24">18-24</option><option value="25-34">25-34</option><option value="35-44">35-44</option><option value="45-54">45-54</option><option value="55-64">55-64</option><option value="65+">65+</option></select></div>
                             </div>
                             <div class="form__group form__group--full">
                                 <label class="form__label">What areas do you need help with? <span class="required">*</span></label>
@@ -684,10 +262,7 @@
                                     <label class="form__checkbox"><input type="checkbox" name="needs[]" value="Other"><span>Other</span></label>
                                 </div>
                             </div>
-                            <div class="form__group form__group--full">
-                                <label class="form__label" for="message">How can we help? <span class="required">*</span></label>
-                                <textarea id="message" name="message" class="form__textarea" required placeholder="Please tell us about your situation..."></textarea>
-                            </div>
+                            <div class="form__group form__group--full"><label class="form__label" for="message">How can we help? <span class="required">*</span></label><textarea id="message" name="message" class="form__textarea" required placeholder="Please tell us about your situation..."></textarea></div>
                             <button type="submit" class="btn btn--secondary btn--lg form__submit">Send Request</button>
                             <p class="form__privacy">All information is kept strictly confidential.</p>
                         </form>
@@ -707,71 +282,105 @@
                         <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
                     </div>
                 </div>
-                <div class="footer__col">
-                    <h4 class="footer__col-title">Resources</h4>
-                    <ul class="footer__links">
-                        <li><a href="#resources">Emotional Support</a></li>
-                        <li><a href="#resources">Spiritual Care</a></li>
-                        <li><a href="#resources">Safety & Housing</a></li>
-                        <li><a href="#resources">Financial Help</a></li>
-                    </ul>
-                </div>
-                <div class="footer__col">
-                    <h4 class="footer__col-title">Organization</h4>
-                    <ul class="footer__links">
-                        <li><a href="#mission">About Us</a></li>
-                        <li><a href="#process">How It Works</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#contact">Donate</a></li>
-                    </ul>
-                </div>
-                <div class="footer__col">
-                    <h4 class="footer__col-title">Contact</h4>
-                    <ul class="footer__links">
-                        <li>Huntsville, Alabama</li>
-                        <li><a href="/cdn-cgi/l/email-protection#f6849385829984939e998693c0c7b6919b979f9ad895999b"><span class="__cf_email__" data-cfemail="82f0e7f1f6edf0e7eaedf2e7b4b3c2e5efe3ebeeace1edef">[email&#160;protected]</span></a></li>
-                    </ul>
-                </div>
+                <div class="footer__col"><h4 class="footer__col-title">Resources</h4><ul class="footer__links"><li><a href="#resources">Emotional Support</a></li><li><a href="#resources">Spiritual Care</a></li><li><a href="#resources">Safety & Housing</a></li><li><a href="#resources">Financial Help</a></li></ul></div>
+                <div class="footer__col"><h4 class="footer__col-title">Organization</h4><ul class="footer__links"><li><a href="#mission">About Us</a></li><li><a href="#process">How It Works</a></li><li><a href="#contact">Contact</a></li><li><a href="#contact">Donate</a></li></ul></div>
+                <div class="footer__col"><h4 class="footer__col-title">Contact</h4><ul class="footer__links"><li>Huntsville, Alabama</li><li><a href="mailto:restorehope61@gmail.com">restorehope61@gmail.com</a></li></ul></div>
             </div>
-            <div class="footer__bottom">
-                <p class="footer__copyright">© 2025 RestoreHope61 Ministry. All rights reserved.</p>
-                <p class="footer__disclaimer">Resource information is provided as a guide. Please verify availability directly with organizations. Last updated February 2025.</p>
-            </div>
+            <div class="footer__bottom"><p class="footer__copyright">© 2025 RestoreHope61 Ministry. All rights reserved.</p><p class="footer__disclaimer">Resource information is provided as a guide. Please verify availability directly with organizations. Last updated February 2025.</p></div>
         </div>
     </footer>
-    <a href="#contact" class="help-button" aria-label="Get help now">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-        <span>Need Help?</span>
-    </a>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        const nav = document.querySelector('.nav');
-        window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.pageYOffset > 50); });
-        const navToggle = document.querySelector('.nav__toggle');
-        const navMenu = document.querySelector('.nav__menu');
-        navToggle.addEventListener('click', () => { const isOpen = navMenu.classList.toggle('open'); navToggle.setAttribute('aria-expanded', isOpen); });
-        document.querySelectorAll('.nav__link').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); }); });
-        const tabs = document.querySelectorAll('.resources__tab');
-        const panels = document.querySelectorAll('.resources__panel');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-                tab.classList.add('active');
-                tab.setAttribute('aria-selected', 'true');
-                const targetPanel = tab.dataset.tab;
-                panels.forEach(panel => { panel.classList.toggle('active', panel.dataset.panel === targetPanel); });
-            });
+    <a href="#contact" class="help-button" aria-label="Get help now"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Need Help?</span></a>
+    <script>
+        // Navigation scroll effect
+        var nav = document.querySelector('.nav');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
-        const contactForm = document.getElementById('contact-form');
-        const checkboxes = contactForm.querySelectorAll('input[type="checkbox"]');
-        contactForm.addEventListener('submit', (e) => { if (!Array.from(checkboxes).some(cb => cb.checked)) { e.preventDefault(); alert('Please select at least one area where you need help.'); } });
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
+
+        // Mobile navigation toggle
+        var navToggle = document.querySelector('.nav__toggle');
+        var navMenu = document.querySelector('.nav__menu');
+        navToggle.addEventListener('click', function() {
+            var isOpen = navMenu.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close mobile nav when clicking a link
+        var navLinks = document.querySelectorAll('.nav__link');
+        for (var i = 0; i < navLinks.length; i++) {
+            navLinks[i].addEventListener('click', function() {
+                navMenu.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        // Resource tabs
+        var tabs = document.querySelectorAll('.resources__tab');
+        var panels = document.querySelectorAll('.resources__panel');
+
+        for (var j = 0; j < tabs.length; j++) {
+            tabs[j].addEventListener('click', function() {
+                // Remove active from all tabs
+                for (var k = 0; k < tabs.length; k++) {
+                    tabs[k].classList.remove('active');
+                    tabs[k].setAttribute('aria-selected', 'false');
+                }
+                // Add active to clicked tab
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                
+                // Get the target panel
+                var targetPanel = this.getAttribute('data-tab');
+                
+                // Hide all panels, show target
+                for (var m = 0; m < panels.length; m++) {
+                    if (panels[m].getAttribute('data-panel') === targetPanel) {
+                        panels[m].classList.add('active');
+                    } else {
+                        panels[m].classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Form validation
+        var contactForm = document.getElementById('contact-form');
+        var checkboxes = contactForm.querySelectorAll('input[type="checkbox"]');
+        contactForm.addEventListener('submit', function(e) {
+            var checked = false;
+            for (var n = 0; n < checkboxes.length; n++) {
+                if (checkboxes[n].checked) {
+                    checked = true;
+                    break;
+                }
+            }
+            if (!checked) {
+                e.preventDefault();
+                alert('Please select at least one area where you need help.');
+            }
+        });
+
+        // Smooth scroll
+        var anchors = document.querySelectorAll('a[href^="#"]');
+        for (var p = 0; p < anchors.length; p++) {
+            anchors[p].addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
                 if (href === '#') return;
                 e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) { const offset = nav.offsetHeight; window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' }); }
+                var target = document.querySelector(href);
+                if (target) {
+                    var offset = nav.offsetHeight;
+                    window.scrollTo({
+                        top: target.offsetTop - offset,
+                        behavior: 'smooth'
+                    });
+                }
             });
-        });
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } }); }, { threshold: 0.1 });
-        document.querySelectorAll(
+        }
+    </script>
+</body>
+</html>
