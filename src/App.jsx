@@ -2,6 +2,7 @@ import {
   Navigation,
   Hero,
   Mission,
+  ResourceSearch,
   Resources,
   Process,
   Contact,
@@ -25,6 +26,7 @@ function App() {
       <main id="main">
         <Hero watermarkUrl={watermarkUrl} />
         <Mission />
+        <ResourceSearch />
         <Resources />
         <Process />
         <Contact />
