@@ -1,7 +1,7 @@
 import { ButtonLink } from './Button'
 
 const stats = [
-  { value: '9', label: 'Resource Categories' },
+  { value: '10', label: 'Resource Categories' },
   { value: '50+', label: 'Local Organizations' },
 ]
 
