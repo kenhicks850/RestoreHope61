@@ -6,6 +6,7 @@ export function ResourceCard({
   services,
   bestFor,
   contact,
+  website,
 }) {
   return (
     <article
@@ -55,6 +56,21 @@ export function ResourceCard({
             <span className="text-sm text-gray-700">{contact}</span>
           </div>
         )}
+        {website && (
+          <div className="flex gap-3">
+            <span className="shrink-0 w-20 text-sm font-semibold text-gray-500">
+              Website
+            </span>
+            <a 
+              href={website} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm text-[--color-primary] hover:text-[--color-primary-light] underline"
+            >
+              Visit Website
+            </a>
+          </div>
+        )}
       </div>
     </article>
   )
@@ -67,14 +83,35 @@ export function AdditionalResources({ title, items }) {
         {title}
       </h4>
       <ul className="grid sm:grid-cols-2 gap-3 list-none">
-        {items.map((item) => (
-          <li
-            key={item}
-            className="p-3 bg-gray-50 rounded-[--radius-md] text-sm text-gray-600"
-          >
-            {item}
-          </li>
-        ))}
+        {items.map((item, index) => {
+          // Handle items that are objects with text and url
+          if (typeof item === 'object' && item.url) {
+            return (
+              <li
+                key={index}
+                className="p-3 bg-gray-50 rounded-[--radius-md] text-sm"
+              >
+                <a 
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[--color-primary] hover:text-[--color-primary-light] underline"
+                >
+                  {item.text}
+                </a>
+              </li>
+            )
+          }
+          // Handle plain string items
+          return (
+            <li
+              key={index}
+              className="p-3 bg-gray-50 rounded-[--radius-md] text-sm text-gray-600"
+            >
+              {item}
+            </li>
+          )
+        })}
       </ul>
     </div>
   )
