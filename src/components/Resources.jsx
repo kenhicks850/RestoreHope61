@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { cn } from '../lib/utils'
 import { resourceCategories } from '../lib/data'
-import { ResourceCard, AdditionalResources } from './ResourceCard'
+import { ResourceCard } from './ResourceCard'
 
 export function Resources() {
   const [activeTab, setActiveTab] = useState('emotional')
@@ -62,16 +62,11 @@ export function Resources() {
             </div>
 
             {/* Resource cards */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {activeCategory.resources.map((resource) => (
                 <ResourceCard key={resource.title} {...resource} />
               ))}
             </div>
-
-            {/* Additional resources */}
-            {activeCategory.additional && (
-              <AdditionalResources {...activeCategory.additional} />
-            )}
           </div>
         )}
       </div>
